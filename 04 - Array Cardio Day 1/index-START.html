@@ -38,29 +38,68 @@
     
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const filteredArr = inventors.filter((person) => person.year >= 1500 && person.year < 1600);
+    console.log(filteredArr);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+    /*
+    The example below works because you have to first surround the new object with parenthesis,
+    otherwise the function will detect 2 different parenthesis and cannot differentiate which one it needs to 
+    use. The second thing is you cannot just pass person.first or anything like that since its a value.
+    Remember, since I want to create a new object, I have to define the key AND the value, meaning that when
+    assigned to a key like normal, it works as intended:
+    ex:
+    wrong:  {person.first, person.last}  //no keys given, and no parenthesis to separate the object declaration
+    right: ({first: person.first, last: person.last}) //keys are given, parenthesis, and assigned a value
+    */
+    //const mappedArr = inventors.map((person) => ({first:person.first, last:person.last})); //Creating a new array of objects example
+    const mappedArr = inventors.map((person) => person.first + " " + person.last);
+    console.log(mappedArr);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const sortedArr = inventors.sort((a, b) => a.year - b.year);
+    console.log(sortedArr);
 
     // Array.prototype.reduce()
-    // 4. How many years did all the inventors live all together?
+    // 4. How many years did all the inventors live all together
+    const reducedArr = inventors.reduce((total, currentPerson) => (currentPerson.passed - currentPerson.year) + total, 0);
+    console.log(reducedArr);
 
     // 5. Sort the inventors by years lived
+    const sortedArr2 = inventors.sort((a,b) => (a.passed - a.year) - (b.passed - b.year));
+    console.log(sortedArr2);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    //Had to do this one in the console of the website
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const sortedPeople = people.sort((lastOne, nextOne) => {
+      const [aLast, aFirst] = lastOne.split(", ");
+      const [bLast, bFirst] = nextOne.split(", ");
+
+      return aLast > bLast ? 1 : -1;
+    });
+    console.log(sortedPeople);
+
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
 
+    const transportSum = data.reduce((object, currentData) => {
+      console.log(currentData);
+      if(!object[currentData]){
+        object[currentData] = 0;
+      }
+      object[currentData]++;
+      return object;
+    }, {});
+    console.log(transportSum);
   </script>
 </body>
 </html>
